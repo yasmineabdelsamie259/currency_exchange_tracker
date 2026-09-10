@@ -6,8 +6,21 @@ import 'core/di/core_dependencies.dart';
 import 'core/navigation/app_router.dart';
 import 'features/exchange_rates/di/exchange_rates_dependencies.dart';
 
-class CurrencyExchangeApp extends StatelessWidget {
+class CurrencyExchangeApp extends StatefulWidget {
   const CurrencyExchangeApp({super.key});
+
+  @override
+  State<CurrencyExchangeApp> createState() => _CurrencyExchangeAppState();
+}
+
+class _CurrencyExchangeAppState extends State<CurrencyExchangeApp> {
+  final _router = AppRouter.create();
+
+  @override
+  void dispose() {
+    _router.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) => RepositoryProvider<CoreDependencies>(
@@ -17,12 +30,12 @@ class CurrencyExchangeApp extends StatelessWidget {
       lazy: false,
       create: (context) =>
           ExchangeRatesDependencies(context.read<CoreDependencies>()),
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: 'Currency Exchange Tracker',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,
-        onGenerateRoute: AppRouter.onGenerateRoute,
+        routerConfig: _router,
       ),
     ),
   );

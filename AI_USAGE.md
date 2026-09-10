@@ -138,3 +138,25 @@ Established a themed app shell and navigation, shared constructor-injected clien
 - Reason: Implementation requested and completed locally; user has not yet reviewed the resulting foundation.
 - Validation: Flutter analysis passed; all five tests passed; Dart files formatted. Tests cover endpoint construction, cache round-trip and scoped clear, corrupt cache, and server/invalid-data failures. No device build or platform persistence test performed.
 - Related work: lib/core, lib/features/exchange_rates, lib/app.dart, lib/main.dart, pubspec files, Android manifest, analysis options, README.md, and test/features/exchange_rates/data/datasources/data_sources_test.dart. No commit or push in this interaction.
+
+
+### AI-004 - Use go_router for navigation
+
+- Date/time: 2026-09-10T14:44:24+03:00
+- Tool/model: Codex / GPT-6
+- Context: Replace the foundation's imperative route factory with go_router.
+
+#### Prompt
+
+> use go router for navigation
+
+#### AI response summary
+
+Added go_router, defined the named exchangeRates home route at `/` in core/navigation, and migrated to MaterialApp.router. The app state owns one router instance across rebuilds and disposes it when removed. Updated architecture notes. Consulted the official go_router getting-started documentation: https://pub.dev/documentation/go_router/latest/topics/Get%20started-topic.html.
+
+#### Decision
+
+- Outcome: Edited
+- Reason: The user explicitly requested replacing the previously generated navigation approach with go_router; the implementation follows that correction. No additional screens or routing abstractions were introduced.
+- Validation: Dart formatting completed; Flutter analysis found no issues; all five existing data-source tests passed. No device navigation smoke test was performed.
+- Related work: lib/app.dart, lib/core/navigation/app_router.dart, pubspec.yaml, pubspec.lock, README.md. Included in the navigation milestone commit under the standing commit/push instruction.

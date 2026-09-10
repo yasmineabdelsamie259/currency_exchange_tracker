@@ -33,7 +33,7 @@ See [AI_USAGE.md](AI_USAGE.md). Record meaningful interactions throughout develo
 - `lib/core/di`: shared client/storage ownership and disposal.
 - `lib/core/storage`: storage contract and SharedPreferencesAsync adapter.
 - `lib/core/networking` and `lib/core/error`: JSON transport and categorized data-source exceptions.
-- `lib/core/design_system`, `navigation`, `utilities`: app theme, routing, and date formatting.
+- `lib/core/design_system`, `navigation`, `utilities`: app theme, go_router configuration, and date formatting. The app owns and disposes its router; the home route is `/`.
 - `lib/features/exchange_rates/di`: feature dependency construction; future repository/use-case/BLoC factories belong here.
 - `lib/features/exchange_rates/data/datasources`: latest/historical EGP requests and versioned local JSON document persistence.
 - `lib/features/exchange_rates/domain`: reserved pure-Dart boundary for entities, repository contract, and use cases.
