@@ -6,6 +6,8 @@ import 'package:poundwise/core/navigation/app_router.dart';
 import 'package:poundwise/core/utilities/calendar_date.dart';
 import 'package:poundwise/features/exchange_rates/di/exchange_rates_dependencies.dart';
 import 'package:poundwise/features/exchange_rates/presentation/detail/pages/currency_detail_page.dart';
+import 'package:poundwise/features/settings/di/settings_dependencies.dart';
+import 'package:poundwise/features/settings/presentation/bloc/theme_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,13 +41,25 @@ void main() {
         );
       });
     final core = CoreDependencies(client: dio, storage: MemoryStore());
+    final settings = SettingsDependencies(core);
+    final themeCubit = settings.createThemeCubit()..load();
     final router = AppRouter.create(initialLocation: AppRouter.home);
     addTearDown(core.dispose);
     addTearDown(router.dispose);
+    addTearDown(themeCubit.close);
     await tester.pumpWidget(
       RepositoryProvider(
         create: (_) => ExchangeRatesDependencies(core),
-        child: MaterialApp.router(theme: AppTheme.light, routerConfig: router),
+        child: RepositoryProvider.value(
+          value: settings,
+          child: BlocProvider<ThemeCubit>.value(
+            value: themeCubit,
+            child: MaterialApp.router(
+              theme: AppTheme.light,
+              routerConfig: router,
+            ),
+          ),
+        ),
       ),
     );
     await tester.pumpAndSettle();
@@ -58,6 +72,11 @@ void main() {
     await tester.tap(find.byTooltip('Back to rates'));
     await tester.pumpAndSettle();
     expect(find.text('poundwise'), findsOneWidget);
+    await tester.tap(find.text('Settings'));
+    await tester.pumpAndSettle();
+    expect(find.text('Appearance'), findsOneWidget);
+    await tester.tap(find.text('Home'));
+    await tester.pumpAndSettle();
     router.go('/currency/eur');
     await tester.pumpAndSettle();
     expect(find.text('EUR / EGP'), findsOneWidget);

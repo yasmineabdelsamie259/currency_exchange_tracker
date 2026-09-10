@@ -417,3 +417,25 @@ Renamed the installed Android and iOS app to `poundwise` and retained the user-p
 - Reason: The user explicitly selected a Flutter-rendered splash experience and requested the platform-specific Android icon handoff.
 - Validation: Formatted Dart source; refreshed dependencies without `flutter_native_splash`; verified iOS Info.plist syntax; and ran Flutter analysis, widget/unit tests, and an Android debug build for the committed milestone.
 - Related work: package/display names, Flutter splash feature/route/test, Android launch resources, iOS launch storyboard, dependency cleanup, project documentation, test imports, and AI_USAGE.md. Included in the naming-and-splash milestone commit under the standing commit/push instruction.
+
+### AI-016 - Add Settings tab with persisted appearance preferences
+
+- Date/time: 2026-09-10T17:45:24+03:00
+- Tool/model: Codex / GPT-6
+- Context: Add user-controlled appearance settings and a primary tabbed navigation structure.
+
+#### Prompt
+
+> add settings screen to enable user to switch to dark mode and to add related features
+> use tabbed page to navigate between home and settings
+
+#### AI response summary
+
+Added a two-tab shell with Home and Settings destinations, preserving direct currency-detail navigation outside the shell. Created a feature-owned Settings layer with local preference storage, repository, use cases, dependency construction, and ThemeCubit. The settings screen provides System, Light, and Dark appearance choices that apply to the entire app immediately and persist across launches. Added a concise About section with the EGP rate context and app version, without introducing unsupported settings. Added tests for persistence, appearance switching, and tab navigation.
+
+#### Decision
+
+- Outcome: Accepted
+- Reason: The user explicitly requested a Settings screen with dark-mode control and tabbed navigation.
+- Validation: Dart formatting completed; Flutter analysis clean; all 48 tests passed; Android debug APK built successfully; iOS Info.plist syntax verified.
+- Related work: Settings feature layers and DI, app-wide ThemeCubit integration, tab shell/router, navigation tests, settings tests, documentation, and AI_USAGE.md. Included in the settings milestone commit under the standing commit/push instruction.

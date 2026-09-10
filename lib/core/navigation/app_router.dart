@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import '../../features/exchange_rates/domain/entities/exchange_rates.dart';
 import '../../features/exchange_rates/presentation/detail/pages/currency_detail_page.dart';
 import '../../features/splash/presentation/pages/poundwise_splash_page.dart';
+import 'main_tabs_page.dart';
 
 import 'package:go_router/go_router.dart';
-
-import '../../features/exchange_rates/presentation/list/pages/exchange_rates_page.dart';
 
 abstract final class AppRouter {
   static const home = '/';
@@ -24,7 +23,7 @@ abstract final class AppRouter {
       GoRoute(
         path: home,
         name: 'exchangeRates',
-        builder: (context, state) => const ExchangeRatesPage(),
+        builder: (context, state) => const MainTabsPage(),
         routes: [
           GoRoute(
             path: 'currency/:code',
