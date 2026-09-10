@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../core/di/service_locator.dart';
 import '../../../../core/design_system/app_assets.dart';
 import '../../../../core/design_system/theme/exchange_colors.dart';
 import '../../domain/entities/app_theme_preference.dart';
@@ -65,6 +66,7 @@ class SettingsPage extends StatelessWidget {
                     Text('Appearance', style: theme.textTheme.titleLarge),
                     const SizedBox(height: 8),
                     BlocBuilder<ThemeCubit, AppThemePreference>(
+                      bloc: serviceLocator<ThemeCubit>(),
                       builder: (context, preference) => Column(
                         children: [
                           _ThemeOption(
@@ -150,7 +152,7 @@ class _ThemeOption extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       child: ListTile(
-        onTap: () => context.read<ThemeCubit>().select(preference),
+        onTap: () => serviceLocator<ThemeCubit>().select(preference),
         leading: Icon(
           icon,
           color: selectedOption ? scheme.primary : scheme.onSurfaceVariant,

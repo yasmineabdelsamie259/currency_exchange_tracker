@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../core/di/service_locator.dart';
 import '../../../../../core/design_system/app_assets.dart';
 import '../widgets/currency_summary_card.dart';
 import '../widgets/currency_summary_shimmer.dart';
 import '../../../../../core/utilities/calendar_date.dart';
 import '../../../domain/entities/exchange_rates.dart';
-import '../../../di/exchange_rates_dependencies.dart';
 import '../bloc/currency_detail_bloc.dart';
 import '../widgets/history_chart.dart';
 import '../widgets/history_shimmer.dart';
@@ -19,10 +19,10 @@ class CurrencyDetailPage extends StatelessWidget {
   final ExchangeRates? initial;
   @override
   Widget build(BuildContext context) => BlocProvider(
-    create: (context) {
-      final bloc = context.read<ExchangeRatesDependencies>().createDetailBloc(
-        currency,
-        initial: initial,
+    create: (_) {
+      final bloc = serviceLocator<CurrencyDetailBloc>(
+        param1: currency,
+        param2: initial,
       );
       if (initial == null) bloc.add(SummaryRequested());
       bloc.add(HistoryRequested());

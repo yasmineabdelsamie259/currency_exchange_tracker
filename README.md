@@ -32,11 +32,12 @@ See [AI_USAGE.md](AI_USAGE.md). Record meaningful interactions throughout develo
 
 ## Architecture
 
-- `lib/core/di`: shared Dio client/storage ownership and disposal.
+- `lib/core/di`: GetIt composition root, shared Dio client/storage ownership, and disposal. Features register their own data sources, repositories, use cases, and BLoC factories through their feature DI files.
 - `lib/core/storage`: storage contract and SharedPreferencesAsync adapter.
 - `lib/core/networking` and `lib/core/error`: JSON transport and categorized data-source exceptions.
 - `lib/core/design_system`, `navigation`, `utilities`: app theme, go_router configuration, and date formatting. The app owns and disposes its router; the initial route is `/splash` and the home route is `/`.
-- `lib/features/exchange_rates/di`: feature dependency construction; future repository/use-case/BLoC factories belong here.
+- `lib/features/exchange_rates/di`: GetIt registrations for exchange-rate data, domain, and BLoC factories.
+- `lib/features/settings/di`: GetIt registrations for persisted appearance preferences and ThemeCubit.
 - `lib/features/exchange_rates/data/datasources`: latest/historical EGP requests and versioned local JSON document persistence.
 - `lib/features/exchange_rates/domain`: pure-Dart entities, repository contract, and use case.
 - `lib/features/exchange_rates/presentation`: home page and list BLoC; detail BLoC, summary, shimmer, and interactive history chart.

@@ -439,3 +439,24 @@ Added a two-tab shell with Home and Settings destinations, preserving direct cur
 - Reason: The user explicitly requested a Settings screen with dark-mode control and tabbed navigation.
 - Validation: Dart formatting completed; Flutter analysis clean; all 48 tests passed; Android debug APK built successfully; iOS Info.plist syntax verified.
 - Related work: Settings feature layers and DI, app-wide ThemeCubit integration, tab shell/router, navigation tests, settings tests, documentation, and AI_USAGE.md. Included in the settings milestone commit under the standing commit/push instruction.
+
+### AI-017 - Migrate dependency construction to GetIt
+
+- Date/time: 2026-09-10T18:05:00+03:00
+- Tool/model: Codex / GPT-6
+- Context: Replace widget-tree dependency providers and manually assembled feature containers with a GetIt service locator.
+
+#### Prompt
+
+> use service locator (using GetIt) instead of manual dependency injection
+
+#### AI response summary
+
+Added GetIt 9.2.1 and a core composition root that owns the shared CoreDependencies lifecycle. Converted exchange-rate and settings DI files into feature-owned registration functions for their data sources, repositories, use cases, and BLoC factories. Updated the app, pages, and routes to resolve construction dependencies through GetIt while preserving BlocBuilder and BlocProvider only for reactive state and BLoC disposal. Updated tests to register an isolated CoreDependencies instance through the service locator instead of injecting providers through the widget tree.
+
+#### Decision
+
+- Outcome: Accepted
+- Reason: The user explicitly requested GetIt service-location in place of manual dependency injection.
+- Validation: Flutter analysis clean; all 48 tests passed, including navigation and persisted settings tests updated for isolated GetIt registrations. Android debug build is run for the committed milestone.
+- Related work: pubspec files, core composition root, exchange-rate and settings feature DI registrations, app/main/page construction, test setup, README.md, and AI_USAGE.md. Included in the GetIt migration commit under the standing commit/push instruction.

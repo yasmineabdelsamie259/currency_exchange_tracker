@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../../core/di/service_locator.dart';
 import '../../../../../core/design_system/app_assets.dart';
 import '../../../../../core/design_system/theme/exchange_colors.dart';
 import '../../../../../core/utilities/calendar_date.dart';
-import '../../../di/exchange_rates_dependencies.dart';
 import '../bloc/exchange_rates_bloc.dart';
 import '../widgets/base_currency_card.dart';
 import '../widgets/exchange_rates_shimmer.dart';
@@ -17,9 +17,7 @@ class ExchangeRatesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-    create: (context) =>
-        context.read<ExchangeRatesDependencies>().createBloc()
-          ..add(RatesRequested()),
+    create: (_) => serviceLocator<ExchangeRatesBloc>()..add(RatesRequested()),
     child: const ExchangeRatesView(),
   );
 }

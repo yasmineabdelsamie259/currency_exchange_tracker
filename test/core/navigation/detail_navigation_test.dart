@@ -2,15 +2,13 @@ import 'dart:convert';
 
 import 'package:poundwise/core/design_system/theme/app_theme.dart';
 import 'package:poundwise/core/di/core_dependencies.dart';
+import 'package:poundwise/core/di/service_locator.dart';
 import 'package:poundwise/core/navigation/app_router.dart';
 import 'package:poundwise/core/utilities/calendar_date.dart';
-import 'package:poundwise/features/exchange_rates/di/exchange_rates_dependencies.dart';
 import 'package:poundwise/features/exchange_rates/presentation/detail/pages/currency_detail_page.dart';
-import 'package:poundwise/features/settings/di/settings_dependencies.dart';
 import 'package:poundwise/features/settings/presentation/bloc/theme_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../helpers/stub_adapter.dart';
@@ -41,26 +39,14 @@ void main() {
         );
       });
     final core = CoreDependencies(client: dio, storage: MemoryStore());
-    final settings = SettingsDependencies(core);
-    final themeCubit = settings.createThemeCubit()..load();
+    await serviceLocator.reset();
+    configureServiceLocator(core: core);
+    serviceLocator<ThemeCubit>().load();
     final router = AppRouter.create(initialLocation: AppRouter.home);
-    addTearDown(core.dispose);
+    addTearDown(serviceLocator.reset);
     addTearDown(router.dispose);
-    addTearDown(themeCubit.close);
     await tester.pumpWidget(
-      RepositoryProvider(
-        create: (_) => ExchangeRatesDependencies(core),
-        child: RepositoryProvider.value(
-          value: settings,
-          child: BlocProvider<ThemeCubit>.value(
-            value: themeCubit,
-            child: MaterialApp.router(
-              theme: AppTheme.light,
-              routerConfig: router,
-            ),
-          ),
-        ),
-      ),
+      MaterialApp.router(theme: AppTheme.light, routerConfig: router),
     );
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('USD'));

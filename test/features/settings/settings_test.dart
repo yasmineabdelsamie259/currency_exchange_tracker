@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:poundwise/core/design_system/theme/app_theme.dart';
+import 'package:poundwise/core/di/service_locator.dart';
 import 'package:poundwise/core/storage/key_value_store.dart';
 import 'package:poundwise/features/settings/data/datasources/settings_local_data_source.dart';
 import 'package:poundwise/features/settings/data/repositories/settings_repository_impl.dart';
@@ -48,15 +48,17 @@ void main() {
 
   testWidgets('switches to dark mode from settings', (tester) async {
     final cubit = _cubit(_MemoryStore());
-    addTearDown(cubit.close);
+    await serviceLocator.reset();
+    serviceLocator.registerSingleton<ThemeCubit>(
+      cubit,
+      dispose: (cubit) => cubit.close(),
+    );
+    addTearDown(serviceLocator.reset);
     await tester.pumpWidget(
-      BlocProvider.value(
-        value: cubit,
-        child: MaterialApp(
-          theme: AppTheme.light,
-          darkTheme: AppTheme.dark,
-          home: const SettingsPage(),
-        ),
+      MaterialApp(
+        theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
+        home: const SettingsPage(),
       ),
     );
 
