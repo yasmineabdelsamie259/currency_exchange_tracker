@@ -160,3 +160,25 @@ Added go_router, defined the named exchangeRates home route at `/` in core/navig
 - Reason: The user explicitly requested replacing the previously generated navigation approach with go_router; the implementation follows that correction. No additional screens or routing abstractions were introduced.
 - Validation: Dart formatting completed; Flutter analysis found no issues; all five existing data-source tests passed. No device navigation smoke test was performed.
 - Related work: lib/app.dart, lib/core/navigation/app_router.dart, pubspec.yaml, pubspec.lock, README.md. Included in the navigation milestone commit under the standing commit/push instruction.
+
+
+### AI-005 - Prepare visualization assets
+
+- Date/time: 2026-09-10T14:47:26+03:00
+- Tool/model: Codex / GPT-6
+- Context: Prepare home screen visual assets before UI implementation.
+
+#### Prompt
+
+> extract all images and icons from the visualization you have made and place them into the project so that we can start implementing the first screen
+
+#### AI response summary
+
+Inspected the original visualization and identified four Lucide icons, an Egyptian flag emoji, text currency/direction symbols, and CSS decorations; no raster images were present. Added the four original Lucide SVGs from version 0.468.0 and a Twemoji 14.0.2 Egyptian flag SVG as a portable replacement for the platform emoji. Retained licenses and source attribution, documented text/decorative elements in assets/README.md, registered assets in pubspec.yaml, added flutter_svg and centralized AppAssets paths. No screen implementation was added.
+
+#### Decision
+
+- Outcome: Pending review
+- Reason: Asset preparation follows the request; the portable flag replacement and asset set await user review. Text glyphs and layout decorations remain native UI elements rather than being rasterized.
+- Validation: All five SVGs parsed successfully and have viewBoxes. Flutter analysis clean; all five existing tests passed. Assets have not yet been visually verified in a running Flutter screen.
+- Related work: assets/, lib/core/design_system/app_assets.dart, pubspec.yaml, pubspec.lock. Included in the asset milestone commit under the standing commit/push instruction.
