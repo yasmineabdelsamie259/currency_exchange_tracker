@@ -349,3 +349,24 @@ Resolved every outstanding Pending review decision using the subsequent user dir
 - Reason: The user explicitly requested the review-status cleanup.
 - Validation: Confirmed no `Pending review` outcomes remain in AI_USAGE.md.
 - Related work: AI_USAGE.md. Included in the AI-log maintenance commit under the standing commit/push instruction.
+
+### AI-013 - Set the native app icon
+
+- Date/time: 2026-09-10T16:48:50+03:00
+- Tool/model: Codex / GPT-6
+- Context: Configure the existing Poundwise exchange mark as the installed Android and iOS app icon.
+
+#### Prompt
+
+> add the logo as app icon
+
+#### AI response summary
+
+Created a 1024px source icon from the existing exchange-arrow logo using the app's established emerald and lime colors. Generated a separate foreground asset for Android adaptive icons, then generated Android launcher resources and iOS AppIcon sizes with `flutter_launcher_icons` 0.14.4. Documented the derived Lucide attribution and retained the editable SVG sources alongside the generated PNGs.
+
+#### Decision
+
+- Outcome: Accepted
+- Reason: The user explicitly requested the native app-icon implementation using the current logo and visual theme.
+- Validation: Inspected the 1024px PNG source visually; confirmed the full and adaptive foreground source images are 1024×1024; and verified the generator completed Android and iOS icon generation successfully. Flutter analysis and tests are run for the committed milestone.
+- Related work: native Android mipmap/adaptive resources, iOS AppIcon assets and project configuration, app-icon sources, asset documentation, dependency configuration, and AI_USAGE.md. Included in the app-icon milestone commit under the standing commit/push instruction.
