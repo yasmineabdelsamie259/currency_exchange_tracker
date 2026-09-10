@@ -4,8 +4,9 @@ import 'package:currency_exchange_tracker/core/storage/key_value_store.dart';
 import 'package:currency_exchange_tracker/features/exchange_rates/data/datasources/exchange_rates_local_data_source.dart';
 import 'package:currency_exchange_tracker/features/exchange_rates/data/datasources/exchange_rates_remote_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/testing.dart';
+import 'package:dio/dio.dart';
+
+import '../../../../helpers/stub_adapter.dart';
 
 final class MemoryStore implements KeyValueStore {
   final values = <String, String>{};
@@ -25,10 +26,14 @@ final class MemoryStore implements KeyValueStore {
 void main() {
   test('latest and historical requests always use the EGP base', () async {
     final urls = <String>[];
-    final client = MockClient((request) async {
-      urls.add(request.url.toString());
-      return http.Response('{"date":"2026-06-01","egp":{"usd":0.019}}', 200);
-    });
+    final client = Dio()
+      ..httpClientAdapter = StubAdapter((request) async {
+        urls.add(request.uri.toString());
+        return ResponseBody.fromString(
+          '{"date":"2026-06-01","egp":{"usd":0.019}}',
+          200,
+        );
+      });
     addTearDown(client.close);
     final remote = ExchangeRatesRemoteDataSource(JsonClient(client));
     await remote.fetchLatest();
@@ -79,9 +84,10 @@ void main() {
     (200, '[]', DataSourceFailure.invalidData),
   ]) {
     test('categorizes ${scenario.$3}', () async {
-      final client = MockClient(
-        (_) async => http.Response(scenario.$2, scenario.$1),
-      );
+      final client = Dio()
+        ..httpClientAdapter = StubAdapter(
+          (_) async => ResponseBody.fromString(scenario.$2, scenario.$1),
+        );
       addTearDown(client.close);
       await expectLater(
         JsonClient(client).get(Uri.https('example.com')),

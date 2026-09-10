@@ -4,7 +4,7 @@ Flutter mobile technical assessment project targeting Android and iOS.
 
 ## Current status
 
-Foundation established: application shell, light/dark theme, routing, constructor injection, shared HTTP and persistent key-value adapters, and feature-owned remote/local data sources. The screen remains a placeholder. Rate models, repository policy, BLoCs, UI, and offline refresh behavior are not implemented yet.
+Foundation established: application shell, light/dark theme, routing, constructor injection, shared Dio networking and persistent key-value adapters, and feature-owned remote/local data sources. The screen remains a placeholder. Rate models, repository policy, BLoCs, UI, and offline refresh behavior are not implemented yet.
 
 ## Assessment scope
 
@@ -30,7 +30,7 @@ See [AI_USAGE.md](AI_USAGE.md). Record meaningful interactions throughout develo
 
 ## Architecture
 
-- `lib/core/di`: shared client/storage ownership and disposal.
+- `lib/core/di`: shared Dio client/storage ownership and disposal.
 - `lib/core/storage`: storage contract and SharedPreferencesAsync adapter.
 - `lib/core/networking` and `lib/core/error`: JSON transport and categorized data-source exceptions.
 - `lib/core/design_system`, `navigation`, `utilities`: app theme, go_router configuration, and date formatting. The app owns and disposes its router; the home route is `/`.
@@ -49,3 +49,17 @@ flutter test
 ```
 
 Foundation tests use controlled HTTP responses and an in-memory storage implementation. They do not verify platform persistence on a device.
+
+## Networking and errors
+
+Dio is configured with 15-second connection, send, and receive timeouts, JSON
+accept headers, and 2xx status validation. JsonClient returns JSON objects and
+accepts an optional cancellation token. Core DI owns and closes Dio.
+
+DataSourceException exposes a typed kind, optional HTTP status, and a safe message.
+Mappings distinguish connection/send/receive/transform timeout, connection failure,
+certificate failure, cancellation, unauthorized/forbidden/not-found/rate-limited
+responses, other request errors, server failures, invalid JSON, storage, and unknown
+failures. Raw response/error strings are never used as UI messages. Cancellation
+should be ignored by future BLoCs when leaving a screen. No automatic retries or
+certificate bypasses are configured. Cache fallback remains repository work.

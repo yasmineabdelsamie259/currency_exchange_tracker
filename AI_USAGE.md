@@ -182,3 +182,25 @@ Inspected the original visualization and identified four Lucide icons, an Egypti
 - Reason: Asset preparation follows the request; the portable flag replacement and asset set await user review. Text glyphs and layout decorations remain native UI elements rather than being rasterized.
 - Validation: All five SVGs parsed successfully and have viewBoxes. Flutter analysis clean; all five existing tests passed. Assets have not yet been visually verified in a running Flutter screen.
 - Related work: assets/, lib/core/design_system/app_assets.dart, pubspec.yaml, pubspec.lock. Included in the asset milestone commit under the standing commit/push instruction.
+
+
+### AI-006 - Dio networking and clear error messages
+
+- Date/time: 2026-09-10T14:51:59+03:00
+- Tool/model: Codex / GPT-6
+- Context: Establish Dio networking and user-readable error handling.
+
+#### Prompt
+
+> Now establish the networking layer, use Dio and Error handling with clear messages for each exception
+
+#### AI response summary
+
+Replaced the direct http dependency and shared client with Dio. Added shared configuration with connection/send/receive timeouts, Accept header, and 2xx validation; retained JSON object parsing and added optional cancellation tokens. Mapped Dio exception types and common HTTP statuses to framework-independent failure categories with safe actionable messages, including storage and invalid-data messages. Kept certificate validation intact and avoided automatic retries. Migrated endpoint tests to a controlled Dio adapter and added exhaustive transport-category, common status, and malformed payload checks. Consulted official Dio source documentation at https://github.com/cfug/dio/blob/main/dio/lib/src/dio_exception.dart.
+
+#### Decision
+
+- Outcome: Edited
+- Reason: User explicitly replaced the prior http approach with Dio and requested clearer errors; implementation follows this correction. UI display and repository cache fallback remain outside this networking milestone.
+- Validation: Dart formatting completed; Flutter analysis clean; all 25 tests passed using controlled responses. No live-network or device smoke test performed.
+- Related work: lib/core/networking, lib/core/error/data_source_exception.dart, lib/core/di/core_dependencies.dart, tests, dependency files, and README.md. Included in the networking milestone commit under the standing commit/push instruction.
