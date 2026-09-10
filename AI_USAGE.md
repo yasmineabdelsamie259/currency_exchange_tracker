@@ -226,3 +226,27 @@ Added a HttpClient interface exposing only get(Uri), returning a JSON object wit
 - Reason: User requested an abstraction over the previously concrete client. Implemented that architectural correction while preserving GET behavior and existing error handling.
 - Validation: Dart formatting complete; Flutter analysis clean; all 25 existing tests passed.
 - Related work: lib/core/networking/http_client.dart, lib/core/networking/json_client.dart, lib/core/di/core_dependencies.dart, remote data source, README.md. Included in the milestone commit under the standing commit/push instruction.
+
+
+### AI-008 - Theme-only UI colors
+
+- Date/time: 2026-09-10T15:02:50+03:00
+- Tool/model: Codex / GPT-6
+- Context: Establish semantic light/dark colors before home screen implementation.
+
+#### Prompt
+
+> Ok, now let's switch to UI side
+> Don't use static colors, use all colors from theme only&#x20;
+> So add all colors that you will need in both light and dark themes
+
+#### AI response summary
+
+Expanded both Material color schemes to match the approved visualization and added an ExchangeColors ThemeExtension for hero surfaces/text/accent/decoration, strengthening/weakening/unchanged rates, offline surfaces/text, and shimmer colors. Added copyWith and interpolation support. Configured scaffold, app bar, icon, divider, and card colors through the theme. Documented theme-only widget access and token roles; color literals remain only in theme definitions, while the flag retains its artwork colors.
+
+#### Decision
+
+- Outcome: Edited
+- Reason: Applied the user's theme-only color constraint to the existing minimal theme. All custom colors have light and dark values; screen implementation is deferred to the next UI milestone.
+- Validation: Dart files formatted; Flutter analysis clean; all 25 existing tests pass. No visual device verification performed because the home screen remains a placeholder.
+- Related work: lib/core/design_system/theme/app_theme.dart, exchange_colors.dart, README.md. Included in the theme milestone commit under the standing commit/push instruction.
