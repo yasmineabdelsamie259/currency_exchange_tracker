@@ -10,6 +10,7 @@ Extracted asset inventory from the approved `exchange-home` visualization.
 | Pull-to-refresh arrow | `icons/arrow-down.svg` |
 | Egyptian flag emoji | `images/egypt-flag.svg` (portable Twemoji replacement; platform emoji appearance varies) |
 | Native app icon | `images/poundwise_app_icon.svg` and generated PNGs |
+| Native splash screen | `images/poundwise_splash_brand.svg` and Android 12 mark |
 | USD, EUR, GBP, SAR, JPY symbols | Render as text: `$`, `€`, `£`, `ر.س`, `¥` |
 | Daily-change arrows | Render as text: `↓` and `↑` |
 | Poundwise wordmark | Render as text; the arrow icon above supplies its mark |
@@ -47,3 +48,12 @@ Poundwise exchange-arrow mark: an emerald `#123F32` background and a lime
 `#D6EF98` tile. `poundwise_app_icon.svg` is the full source artwork; the
 foreground variant supports Android adaptive icons. The exchange-arrow paths
 derive from the Lucide asset listed above and remain covered by its attribution.
+
+## Native splash screen
+
+The launch screen uses the same emerald and lime composition as the app icon.
+`poundwise_splash_brand.svg` supplies the centered mark, wordmark, and tagline
+for iOS and Android versions before Android 12. Android 12 uses the separate
+safe-area mark source because its system splash screen clips the center icon to
+a circle. Both assets derive their exchange-arrow paths from the licensed
+Lucide source listed above.

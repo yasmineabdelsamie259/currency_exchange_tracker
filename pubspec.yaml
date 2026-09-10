@@ -18,6 +18,7 @@ dependencies:
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.8
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
@@ -36,3 +37,18 @@ flutter_launcher_icons:
   adaptive_icon_background: '#123F32'
   adaptive_icon_foreground: assets/images/poundwise_app_icon_foreground.png
   remove_alpha_ios: true
+
+flutter_native_splash:
+  color: '#123F32'
+  color_dark: '#234E3E'
+  image: assets/images/poundwise_splash_brand.png
+  image_dark: assets/images/poundwise_splash_brand.png
+  android: true
+  ios: true
+  web: false
+  ios_content_mode: center
+  android_12:
+    color: '#123F32'
+    color_dark: '#234E3E'
+    image: assets/images/poundwise_splash_android12.png
+    image_dark: assets/images/poundwise_splash_android12.png

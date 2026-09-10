@@ -370,3 +370,24 @@ Created a 1024px source icon from the existing exchange-arrow logo using the app
 - Reason: The user explicitly requested the native app-icon implementation using the current logo and visual theme.
 - Validation: Inspected the 1024px PNG source visually; confirmed the full and adaptive foreground source images are 1024×1024; and verified the generator completed Android and iOS icon generation successfully. Flutter analysis and tests are run for the committed milestone.
 - Related work: native Android mipmap/adaptive resources, iOS AppIcon assets and project configuration, app-icon sources, asset documentation, dependency configuration, and AI_USAGE.md. Included in the app-icon milestone commit under the standing commit/push instruction.
+
+### AI-014 - Visualize and implement the native splash screen
+
+- Date/time: 2026-09-10T16:53:29+03:00
+- Tool/model: Codex / GPT-6
+- Context: Create a splash-screen design that extends the Poundwise app icon and apply it to native Android and iOS launch screens.
+
+#### Prompt
+
+> visualize splash screen and use it
+
+#### AI response summary
+
+Created a mobile splash-screen preview with the emerald launch surface, subtle exchange-inspired rings, lime exchange mark, Poundwise wordmark, tagline, and restrained loading dots. Applied the visual direction natively with an editable transparent brand asset for iOS and pre-Android-12 devices, plus an Android-12 safe-area asset because that platform circularly masks the center mark. Configured dark-mode launch backgrounds to follow the app theme and generated the Android and iOS launch resources using `flutter_native_splash` 2.4.8.
+
+#### Decision
+
+- Outcome: Accepted
+- Reason: The user explicitly requested the splash visualization and its implementation.
+- Validation: Inspected the generated splash artwork, verified 1200×1200 brand and 1152×1152 Android-12 source dimensions, confirmed iOS Info.plist syntax, and verified native-resource generation completed successfully. Flutter analysis and tests are run for the committed milestone.
+- Related work: splash-screen visualization, native Android drawable/styles resources, iOS launch storyboard/assets/Info.plist, editable splash assets, asset documentation, dependency configuration, and AI_USAGE.md. Included in the splash-screen milestone commit under the standing commit/push instruction.
