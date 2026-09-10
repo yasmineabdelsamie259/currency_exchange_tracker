@@ -30,3 +30,11 @@ rendering them. Keep the flag's original colors. Use `AppAssets` for paths.
   Full license retained in `licenses/twemoji-graphics.txt`.
 
 Include these attribution notices in the app's licenses/credits at delivery.
+
+## Detail screen additions
+
+- `icons/arrow-left.svg`: back navigation.
+- `icons/info.svg`: daily-update information.
+- Existing refresh and calendar icons are reused.
+- Currency symbols remain text and the history chart is rendered from data.
+- Both new icons are unmodified Lucide 0.468.0 SVGs covered by the existing license.

@@ -1,3 +1,4 @@
+import 'package:currency_exchange_tracker/features/exchange_rates/domain/entities/currency_history.dart';
 import 'package:currency_exchange_tracker/core/design_system/theme/app_theme.dart';
 import 'package:currency_exchange_tracker/features/exchange_rates/domain/entities/exchange_rates.dart';
 import 'package:currency_exchange_tracker/features/exchange_rates/domain/repositories/exchange_rates_repository.dart';
@@ -10,6 +11,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 final class FakeRepository implements ExchangeRatesRepository {
   int calls = 0;
+  @override
+  Future<CurrencyHistory> loadHistory(
+    Currency currency, {
+    bool refresh = false,
+  }) => throw UnimplementedError('Not used by home tests');
+
   @override
   Future<ExchangeRates> load() async {
     calls++;

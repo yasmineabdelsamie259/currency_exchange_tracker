@@ -1,3 +1,5 @@
+import 'package:currency_exchange_tracker/features/exchange_rates/domain/entities/currency_history.dart';
+
 import 'dart:async';
 
 import 'package:currency_exchange_tracker/core/error/data_source_exception.dart';
@@ -9,6 +11,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 final class ControlledRepository implements ExchangeRatesRepository {
   final requests = <Completer<ExchangeRates>>[];
+  @override
+  Future<CurrencyHistory> loadHistory(
+    Currency currency, {
+    bool refresh = false,
+  }) => throw UnimplementedError('Not used by home tests');
+
   @override
   Future<ExchangeRates> load() {
     final pending = Completer<ExchangeRates>();

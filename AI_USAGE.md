@@ -272,3 +272,33 @@ Implemented the home route with Poundwise branding, SVG icons and Egyptian flag,
 - Reason: Implementation follows the approved visual and architecture; user review of the completed home screen is still pending. UTC calendar dates and four-decimal rate formatting follow the earlier proposed defaults.
 - Validation: Flutter analysis clean; all 33 tests pass, including data-source/networking checks, inversion and daily changes, cache fallback across repository recreation, partial historical failure, invalid rates, BLoC refresh/error/reconnect behavior, and light/dark widget rendering with normal/2x text at 390px. Inspected temporary light/dark screenshots rendered with a real font and fixture data. No mobile device or simulator was connected; no device build, live API smoke test, or platform persistence verification was performed.
 - Related work: home presentation/BLoC/widgets, exchange_rates domain/data/DI, core network monitor/DI, dependency files, architecture notes, and tests. Included in the home milestone commit under the standing commit/push instruction.
+
+
+#### Review follow-up - 2026-09-10T15:27:04+03:00
+
+- AI-009 outcome: Accepted
+- Reason: User replied "great" and requested the detail-screen milestone.
+
+### AI-010 - Detail visualization, assets, and implementation
+
+- Date/time: 2026-09-10T15:27:04+03:00
+- Tool/model: Codex / GPT-6
+- Context: Design and implement currency details using the existing theme and feature architecture.
+
+#### Prompt
+
+> great, now make a visualization for details screen with same theme and colors, and extract all images and icons from it&#x20;
+> then implement it
+
+#### AI response summary
+
+Created an interactive detail design preview with the existing emerald/ivory light/dark colors, currency rate card, daily change, rate date, seven-day chart, selected-day value, and loading/error previews. Clearly labeled preview history and changes as illustrative. Added the two new Lucide SVG assets (arrow-left and info), reusing refresh/calendar icons and keeping currency symbols as text; retained attribution and centralized paths.
+
+Implemented home-to-detail go_router navigation, direct currency links and invalid-code recovery; feature-owned detail BLoC with independent summary/history loading, failures and retries. Added history entity/use case/repository operation, seven completed UTC-date requests, date validation, inversion, shared in-memory history and persistent date-keyed fallback with original timestamps. Successful partial fetches persist without fabricating missing points. Added theme-only CustomPainter chart with selectable days, semantic values, reduced-motion-aware shimmer, and reconnect/resume refresh. Extracted the rate summary card as a separate widget.
+
+#### Decision
+
+- Outcome: Pending review
+- Reason: User authorized both the visualization and implementation; final design/code acceptance is not yet provided. Historical window follows the previously proposed seven completed UTC dates. A simple seven-point custom chart avoids an additional chart package.
+- Validation: Flutter analysis clean; all 43 tests pass. New tests cover seven-date ordering/inversion, cross-currency reuse, persistent cached history, partial failures/retry, invalid dates/values, independent summary failure, chart shimmer/selection/failure, light/dark at 320px and 390px, 2x text/reduced motion, and home/back/direct/invalid navigation. Inspected temporary light/dark Flutter screenshots with fixture data and a real font. Verified new SVGs parse and read back the visualization fragment. No live API/device smoke test or native platform persistence test performed.
+- Related work: detail visualization in conversation, assets/icons and asset registry/docs, exchange_rates domain/data/DI/detail presentation, home row navigation, app router, README.md, and tests. Included in the detail milestone commit under the standing commit/push instruction.

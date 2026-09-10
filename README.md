@@ -6,8 +6,7 @@ Flutter mobile technical assessment project targeting Android and iOS.
 
 Home screen implemented with theme-driven light/dark styling, real latest/yesterday
 requests, daily changes, BLoC state, persistent fallback, pull-to-refresh, retry,
-and refresh on reconnect/app resume. Currency detail and historical charts remain
-the next feature milestone.
+and refresh on reconnect/app resume. Currency detail screens include independently loaded summaries and seven-day historical charts.
 
 ## Assessment scope
 
@@ -40,12 +39,11 @@ See [AI_USAGE.md](AI_USAGE.md). Record meaningful interactions throughout develo
 - `lib/features/exchange_rates/di`: feature dependency construction; future repository/use-case/BLoC factories belong here.
 - `lib/features/exchange_rates/data/datasources`: latest/historical EGP requests and versioned local JSON document persistence.
 - `lib/features/exchange_rates/domain`: pure-Dart entities, repository contract, and use case.
-- `lib/features/exchange_rates/presentation`: home page and list BLoC; detail presentation remains future work.
+- `lib/features/exchange_rates/presentation`: home page and list BLoC; detail BLoC, summary, shimmer, and interactive history chart.
 
 The local source stores the last successful latest/previous payloads and fetch time
 in a versioned document. The repository checks dates, inverts positive finite
-rates, and returns cached data when fetching fails. Historical retention remains
-part of the chart milestone. App startup performs one latest request and one
+rates, and returns cached data when fetching fails. Historical payloads use a separate bounded seven-date cache shared across all currencies. App startup performs one latest request and one
 previous UTC calendar-date request; stale latest data has no daily change.
 Connectivity events are retry hints, not proof of internet availability.
 
@@ -80,3 +78,22 @@ accepts a URI and returns a JSON object without exposing Dio types. `JsonClient`
 implements it using Dio and preserves the existing error mapping. Optional
 Dio cancellation remains an implementation-specific capability. No POST, PUT,
 PATCH, or DELETE operations are exposed.
+
+## Currency detail
+
+Tap a currency to open `/currency/:code` with go_router. The detail screen uses
+its own BLoC, preserving the current rate while history loads or fails. Direct
+links fetch their own summary; unknown codes show a recovery link.
+
+History requests the seven completed UTC dates before today, one request per date.
+All seven payloads are shared between currencies and cached with original fetch
+timestamps. Failed dates fall back to validated cached snapshots. A missing date
+or currency produces a retryable chart error, never a fabricated/interpolated point.
+Successful dates are persisted even when another request fails. Explicit refresh
+bypasses in-memory reuse. The current-rate cache and history cache use separate keys.
+
+The chart shows a shimmer while fetching (respects reduced motion), theme-derived
+line/grid/text colors, padded axes that support flat series, and accessible day
+selection. Summary and chart failures/retries are independent. Refresh runs on
+reconnection and app resume. Light/dark and 320px/390px rendering are covered by
+widget tests; device networking and platform persistence still need a device smoke test.

@@ -1,3 +1,6 @@
+import '../domain/entities/exchange_rates.dart';
+import '../domain/usecases/get_currency_history.dart';
+import '../presentation/detail/bloc/currency_detail_bloc.dart';
 import '../../../core/di/core_dependencies.dart';
 import '../data/repositories/exchange_rates_repository_impl.dart';
 import '../domain/repositories/exchange_rates_repository.dart';
@@ -19,6 +22,17 @@ final class ExchangeRatesDependencies {
   late final ExchangeRatesRepository repository = ExchangeRatesRepositoryImpl(
     remote,
     local,
+  );
+
+  CurrencyDetailBloc createDetailBloc(
+    Currency currency, {
+    ExchangeRates? initial,
+  }) => CurrencyDetailBloc(
+    currency: currency,
+    initial: initial,
+    getRates: GetExchangeRates(repository),
+    getHistory: GetCurrencyHistory(repository),
+    networkChanges: networkChanges,
   );
 
   ExchangeRatesBloc createBloc() => ExchangeRatesBloc(
