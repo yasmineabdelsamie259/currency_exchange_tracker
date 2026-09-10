@@ -31,7 +31,7 @@ class _CurrencyExchangeAppState extends State<CurrencyExchangeApp> {
       create: (context) =>
           ExchangeRatesDependencies(context.read<CoreDependencies>()),
       child: MaterialApp.router(
-        title: 'Currency Exchange Tracker',
+        title: 'poundwise',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,

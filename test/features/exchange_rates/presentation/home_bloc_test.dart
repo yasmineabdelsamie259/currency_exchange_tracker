@@ -1,12 +1,12 @@
-import 'package:currency_exchange_tracker/features/exchange_rates/domain/entities/currency_history.dart';
+import 'package:poundwise/features/exchange_rates/domain/entities/currency_history.dart';
 
 import 'dart:async';
 
-import 'package:currency_exchange_tracker/core/error/data_source_exception.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/domain/entities/exchange_rates.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/domain/repositories/exchange_rates_repository.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/domain/usecases/get_exchange_rates.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/presentation/list/bloc/exchange_rates_bloc.dart';
+import 'package:poundwise/core/error/data_source_exception.dart';
+import 'package:poundwise/features/exchange_rates/domain/entities/exchange_rates.dart';
+import 'package:poundwise/features/exchange_rates/domain/repositories/exchange_rates_repository.dart';
+import 'package:poundwise/features/exchange_rates/domain/usecases/get_exchange_rates.dart';
+import 'package:poundwise/features/exchange_rates/presentation/list/bloc/exchange_rates_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 final class ControlledRepository implements ExchangeRatesRepository {

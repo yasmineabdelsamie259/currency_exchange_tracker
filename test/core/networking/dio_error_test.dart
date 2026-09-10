@@ -1,6 +1,6 @@
-import 'package:currency_exchange_tracker/core/error/data_source_exception.dart';
-import 'package:currency_exchange_tracker/core/networking/dio_factory.dart';
-import 'package:currency_exchange_tracker/core/networking/json_client.dart';
+import 'package:poundwise/core/error/data_source_exception.dart';
+import 'package:poundwise/core/networking/dio_factory.dart';
+import 'package:poundwise/core/networking/json_client.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 

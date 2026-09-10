@@ -1,9 +1,9 @@
-import 'package:currency_exchange_tracker/core/error/data_source_exception.dart';
-import 'package:currency_exchange_tracker/core/networking/http_client.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/data/datasources/exchange_rates_local_data_source.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/data/datasources/exchange_rates_remote_data_source.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/data/repositories/exchange_rates_repository_impl.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/domain/entities/exchange_rates.dart';
+import 'package:poundwise/core/error/data_source_exception.dart';
+import 'package:poundwise/core/networking/http_client.dart';
+import 'package:poundwise/features/exchange_rates/data/datasources/exchange_rates_local_data_source.dart';
+import 'package:poundwise/features/exchange_rates/data/datasources/exchange_rates_remote_data_source.dart';
+import 'package:poundwise/features/exchange_rates/data/repositories/exchange_rates_repository_impl.dart';
+import 'package:poundwise/features/exchange_rates/domain/entities/exchange_rates.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../datasources/data_sources_test.dart' show MemoryStore;

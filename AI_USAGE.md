@@ -387,7 +387,33 @@ Created a mobile splash-screen preview with the emerald launch surface, subtle e
 
 #### Decision
 
-- Outcome: Accepted
-- Reason: The user explicitly requested the splash visualization and its implementation.
+- Outcome: Edited
+- Reason: The user later requested that the approved visual be rendered by Flutter instead of using the generated native brand splash.
 - Validation: Inspected the generated splash artwork, verified 1200×1200 brand and 1152×1152 Android-12 source dimensions, confirmed iOS Info.plist syntax, and verified native-resource generation completed successfully. Flutter analysis and tests are run for the committed milestone.
 - Related work: splash-screen visualization, native Android drawable/styles resources, iOS launch storyboard/assets/Info.plist, editable splash assets, asset documentation, dependency configuration, and AI_USAGE.md. Included in the splash-screen milestone commit under the standing commit/push instruction.
+
+#### Review follow-up - 2026-09-10T17:45:24+03:00
+
+- AI-014 outcome: Edited
+- Reason: The subsequent request moved the branded visual into the Flutter app while retaining only Android's icon-first native handoff.
+
+### AI-015 - Rename Poundwise and move the branded splash into Flutter
+
+- Date/time: 2026-09-10T17:45:24+03:00
+- Tool/model: Codex / GPT-6
+- Context: Apply the approved splash visual as a Flutter route on both platforms while simplifying the native handoff.
+
+#### Prompt
+
+> change app name to be "poundwise" and use the visualization you have made for splash screen for both ios, android, and you can use flutter splash instead of native one and in android we can display the icon of the app before flutter splash is displayed
+
+#### AI response summary
+
+Renamed the installed Android and iOS app to `poundwise` and retained the user-provided Dart package rename, updating test imports accordingly. Replaced the generated native branded splash with a feature-owned Flutter splash route that recreates the approved emerald surface, exchange rings, lime mark, wordmark, tagline, and loading dots with theme-derived colors. The app begins at `/splash` and transitions to the home route after 1.2 seconds. Android's native launch layer now presents the existing app icon on the hero-color surface, including Android 12's system splash; iOS uses a matching brief hero-color handoff before Flutter renders the full visual. Removed `flutter_native_splash` and its generated assets, and added a widget test for the splash content and transition.
+
+#### Decision
+
+- Outcome: Accepted
+- Reason: The user explicitly selected a Flutter-rendered splash experience and requested the platform-specific Android icon handoff.
+- Validation: Formatted Dart source; refreshed dependencies without `flutter_native_splash`; verified iOS Info.plist syntax; and ran Flutter analysis, widget/unit tests, and an Android debug build for the committed milestone.
+- Related work: package/display names, Flutter splash feature/route/test, Android launch resources, iOS launch storyboard, dependency cleanup, project documentation, test imports, and AI_USAGE.md. Included in the naming-and-splash milestone commit under the standing commit/push instruction.

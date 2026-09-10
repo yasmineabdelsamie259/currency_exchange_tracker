@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:currency_exchange_tracker/core/design_system/theme/app_theme.dart';
-import 'package:currency_exchange_tracker/core/di/core_dependencies.dart';
-import 'package:currency_exchange_tracker/core/navigation/app_router.dart';
-import 'package:currency_exchange_tracker/core/utilities/calendar_date.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/di/exchange_rates_dependencies.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/presentation/detail/pages/currency_detail_page.dart';
+import 'package:poundwise/core/design_system/theme/app_theme.dart';
+import 'package:poundwise/core/di/core_dependencies.dart';
+import 'package:poundwise/core/navigation/app_router.dart';
+import 'package:poundwise/core/utilities/calendar_date.dart';
+import 'package:poundwise/features/exchange_rates/di/exchange_rates_dependencies.dart';
+import 'package:poundwise/features/exchange_rates/presentation/detail/pages/currency_detail_page.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +39,7 @@ void main() {
         );
       });
     final core = CoreDependencies(client: dio, storage: MemoryStore());
-    final router = AppRouter.create();
+    final router = AppRouter.create(initialLocation: AppRouter.home);
     addTearDown(core.dispose);
     addTearDown(router.dispose);
     await tester.pumpWidget(

@@ -1,4 +1,4 @@
-# Currency Exchange Tracker
+# poundwise
 
 Flutter mobile technical assessment project targeting Android and iOS.
 
@@ -35,7 +35,7 @@ See [AI_USAGE.md](AI_USAGE.md). Record meaningful interactions throughout develo
 - `lib/core/di`: shared Dio client/storage ownership and disposal.
 - `lib/core/storage`: storage contract and SharedPreferencesAsync adapter.
 - `lib/core/networking` and `lib/core/error`: JSON transport and categorized data-source exceptions.
-- `lib/core/design_system`, `navigation`, `utilities`: app theme, go_router configuration, and date formatting. The app owns and disposes its router; the home route is `/`.
+- `lib/core/design_system`, `navigation`, `utilities`: app theme, go_router configuration, and date formatting. The app owns and disposes its router; the initial route is `/splash` and the home route is `/`.
 - `lib/features/exchange_rates/di`: feature dependency construction; future repository/use-case/BLoC factories belong here.
 - `lib/features/exchange_rates/data/datasources`: latest/historical EGP requests and versioned local JSON document persistence.
 - `lib/features/exchange_rates/domain`: pure-Dart entities, repository contract, and use case.
@@ -105,3 +105,11 @@ uses a base-card and five-row skeleton; currency details use a summary-card skel
 and the historical chart uses a chart-shaped skeleton. Shimmer motion respects the
 system reduced-motion setting. Refreshes retain loaded content so the interface does
 not flash back to placeholders. Linear progress indicators are not used.
+
+## Launch experience
+
+The installed app name is `poundwise`. Android first shows the installed app icon
+on an emerald system launch surface, then both Android and iOS show the same
+theme-driven Flutter splash screen before navigating to the exchange-rate home
+screen. The Flutter splash uses the existing exchange mark, wordmark, tagline,
+and decorative rings from the approved visualization.

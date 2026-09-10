@@ -1,8 +1,8 @@
-import 'package:currency_exchange_tracker/core/error/data_source_exception.dart';
-import 'package:currency_exchange_tracker/core/networking/json_client.dart';
-import 'package:currency_exchange_tracker/core/storage/key_value_store.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/data/datasources/exchange_rates_local_data_source.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/data/datasources/exchange_rates_remote_data_source.dart';
+import 'package:poundwise/core/error/data_source_exception.dart';
+import 'package:poundwise/core/networking/json_client.dart';
+import 'package:poundwise/core/storage/key_value_store.dart';
+import 'package:poundwise/features/exchange_rates/data/datasources/exchange_rates_local_data_source.dart';
+import 'package:poundwise/features/exchange_rates/data/datasources/exchange_rates_remote_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dio/dio.dart';
 

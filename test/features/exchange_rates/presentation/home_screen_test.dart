@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:currency_exchange_tracker/features/exchange_rates/domain/entities/currency_history.dart';
-import 'package:currency_exchange_tracker/core/design_system/theme/app_theme.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/domain/entities/exchange_rates.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/domain/repositories/exchange_rates_repository.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/domain/usecases/get_exchange_rates.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/presentation/list/bloc/exchange_rates_bloc.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/presentation/list/pages/exchange_rates_page.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/presentation/list/widgets/exchange_rates_shimmer.dart';
+import 'package:poundwise/features/exchange_rates/domain/entities/currency_history.dart';
+import 'package:poundwise/core/design_system/theme/app_theme.dart';
+import 'package:poundwise/features/exchange_rates/domain/entities/exchange_rates.dart';
+import 'package:poundwise/features/exchange_rates/domain/repositories/exchange_rates_repository.dart';
+import 'package:poundwise/features/exchange_rates/domain/usecases/get_exchange_rates.dart';
+import 'package:poundwise/features/exchange_rates/presentation/list/bloc/exchange_rates_bloc.dart';
+import 'package:poundwise/features/exchange_rates/presentation/list/pages/exchange_rates_page.dart';
+import 'package:poundwise/features/exchange_rates/presentation/list/widgets/exchange_rates_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
