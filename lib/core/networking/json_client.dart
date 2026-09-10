@@ -4,12 +4,14 @@ import 'package:dio/dio.dart';
 
 import '../error/data_source_exception.dart';
 import 'dio_error_mapper.dart';
+import 'http_client.dart';
 
-final class JsonClient {
+final class JsonClient implements HttpClient {
   const JsonClient(this._client);
 
   final Dio _client;
 
+  @override
   Future<Map<String, dynamic>> get(Uri uri, {CancelToken? cancelToken}) async {
     try {
       // Decode here so malformed payloads have a consistent failure category,

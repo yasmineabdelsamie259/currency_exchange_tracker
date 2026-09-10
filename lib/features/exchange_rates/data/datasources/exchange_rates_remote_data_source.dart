@@ -1,10 +1,10 @@
-import '../../../../core/networking/json_client.dart';
+import '../../../../core/networking/http_client.dart';
 import '../../../../core/utilities/calendar_date.dart';
 
 final class ExchangeRatesRemoteDataSource {
   const ExchangeRatesRemoteDataSource(this._client);
 
-  final JsonClient _client;
+  final HttpClient _client;
 
   Future<Map<String, dynamic>> fetchLatest() => _fetch('latest');
 

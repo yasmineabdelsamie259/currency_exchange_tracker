@@ -63,3 +63,12 @@ responses, other request errors, server failures, invalid JSON, storage, and unk
 failures. Raw response/error strings are never used as UI messages. Cancellation
 should be ignored by future BLoCs when leaving a screen. No automatic retries or
 certificate bypasses are configured. Cache fallback remains repository work.
+
+## GET request abstraction
+
+`core/networking/http_client.dart` defines the GET-only `HttpClient` interface.
+Remote data sources and shared dependency consumers use this contract, which
+accepts a URI and returns a JSON object without exposing Dio types. `JsonClient`
+implements it using Dio and preserves the existing error mapping. Optional
+Dio cancellation remains an implementation-specific capability. No POST, PUT,
+PATCH, or DELETE operations are exposed.

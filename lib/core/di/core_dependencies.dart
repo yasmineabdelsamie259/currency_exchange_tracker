@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 
-import '../networking/dio_factory.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../networking/dio_factory.dart';
+import '../networking/http_client.dart';
 import '../networking/json_client.dart';
 import '../storage/key_value_store.dart';
 import '../storage/preferences_store.dart';
@@ -19,7 +19,7 @@ final class CoreDependencies {
   );
 
   final Dio _client;
-  final JsonClient network;
+  final HttpClient network;
   final KeyValueStore storage;
 
   void dispose() => _client.close(force: true);

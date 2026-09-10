@@ -204,3 +204,25 @@ Replaced the direct http dependency and shared client with Dio. Added shared con
 - Reason: User explicitly replaced the prior http approach with Dio and requested clearer errors; implementation follows this correction. UI display and repository cache fallback remain outside this networking milestone.
 - Validation: Dart formatting completed; Flutter analysis clean; all 25 tests passed using controlled responses. No live-network or device smoke test performed.
 - Related work: lib/core/networking, lib/core/error/data_source_exception.dart, lib/core/di/core_dependencies.dart, tests, dependency files, and README.md. Included in the networking milestone commit under the standing commit/push instruction.
+
+
+### AI-007 - GET-only HTTP abstraction
+
+- Date/time: 2026-09-10T14:59:09+03:00
+- Tool/model: Codex / GPT-6
+- Context: Decouple remote requests from their Dio-backed implementation.
+
+#### Prompt
+
+> Make an abstraction for http request, we will use GET request only
+
+#### AI response summary
+
+Added a HttpClient interface exposing only get(Uri), returning a JSON object without Dio types. JsonClient implements the contract using the existing Dio behavior and error mapping. Changed the remote data source and shared dependency field to depend on HttpClient. Kept optional Dio cancellation implementation-specific and documented the boundary. No additional HTTP verbs or generic request framework were added.
+
+#### Decision
+
+- Outcome: Edited
+- Reason: User requested an abstraction over the previously concrete client. Implemented that architectural correction while preserving GET behavior and existing error handling.
+- Validation: Dart formatting complete; Flutter analysis clean; all 25 existing tests passed.
+- Related work: lib/core/networking/http_client.dart, lib/core/networking/json_client.dart, lib/core/di/core_dependencies.dart, remote data source, README.md. Included in the milestone commit under the standing commit/push instruction.
