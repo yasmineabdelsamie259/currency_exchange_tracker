@@ -97,3 +97,11 @@ line/grid/text colors, padded axes that support flat series, and accessible day
 selection. Summary and chart failures/retries are independent. Refresh runs on
 reconnection and app resume. Light/dark and 320px/390px rendering are covered by
 widget tests; device networking and platform persistence still need a device smoke test.
+
+## Loading states
+
+All initial content loading uses theme-driven shimmer placeholders. The home screen
+uses a base-card and five-row skeleton; currency details use a summary-card skeleton;
+and the historical chart uses a chart-shaped skeleton. Shimmer motion respects the
+system reduced-motion setting. Refreshes retain loaded content so the interface does
+not flash back to placeholders. Linear progress indicators are not used.

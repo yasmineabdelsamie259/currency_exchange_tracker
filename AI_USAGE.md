@@ -302,3 +302,29 @@ Implemented home-to-detail go_router navigation, direct currency links and inval
 - Reason: User authorized both the visualization and implementation; final design/code acceptance is not yet provided. Historical window follows the previously proposed seven completed UTC dates. A simple seven-point custom chart avoids an additional chart package.
 - Validation: Flutter analysis clean; all 43 tests pass. New tests cover seven-date ordering/inversion, cross-currency reuse, persistent cached history, partial failures/retry, invalid dates/values, independent summary failure, chart shimmer/selection/failure, light/dark at 320px and 390px, 2x text/reduced motion, and home/back/direct/invalid navigation. Inspected temporary light/dark Flutter screenshots with fixture data and a real font. Verified new SVGs parse and read back the visualization fragment. No live API/device smoke test or native platform persistence test performed.
 - Related work: detail visualization in conversation, assets/icons and asset registry/docs, exchange_rates domain/data/DI/detail presentation, home row navigation, app router, README.md, and tests. Included in the detail milestone commit under the standing commit/push instruction.
+
+#### Review follow-up - 2026-09-10T16:18:13+03:00
+
+- AI-010 outcome: Accepted
+- Reason: User requested refinement of the implemented loading behavior, continuing work on the detail and home experience.
+
+### AI-011 - Replace linear loaders with shimmer placeholders
+
+- Date/time: 2026-09-10T16:18:13+03:00
+- Tool/model: Codex / GPT-5
+- Context: Replace linear loading indicators across the exchange-rate home and detail screens.
+
+#### Prompt
+
+> Add shimmer loading not linear one for all items in home screen and for the chart and other details
+
+#### AI response summary
+
+Added a reusable theme-driven shimmer primitive that honors reduced-motion preferences. Replaced the home screen's initial loading state with a content-shaped base-card, heading, and five-rate-row skeleton. Replaced the detail screen's initial rate summary with a matching skeleton. Reworked the existing history placeholder into a chart-shaped skeleton with grid lines, a rate trace, and date placeholders. Retained existing loaded content during refreshes, so refresh does not replace data with a loader. Removed all linear progress indicators from application code and added focused widget tests for initial home and summary loading states.
+
+#### Decision
+
+- Outcome: Pending review
+- Reason: The user explicitly requested this loading-state refinement; the final visual treatment awaits review.
+- Validation: Dart formatting completed; Flutter analysis clean; all 45 tests passed. Tests verify home and detail initial shimmers replace linear indicators, and existing detail tests cover chart shimmer, light/dark themes, narrow layouts, large text, and reduced motion. No physical-device visual test was run.
+- Related work: core shimmer widgets, home/detail shimmer components and pages, README.md, and presentation widget tests. Included in the loading-state milestone commit under the standing commit/push instruction.

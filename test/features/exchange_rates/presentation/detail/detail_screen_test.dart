@@ -9,8 +9,9 @@ import 'package:currency_exchange_tracker/features/exchange_rates/domain/usecase
 import 'package:currency_exchange_tracker/features/exchange_rates/domain/usecases/get_currency_history.dart';
 import 'package:currency_exchange_tracker/features/exchange_rates/presentation/detail/bloc/currency_detail_bloc.dart';
 import 'package:currency_exchange_tracker/features/exchange_rates/presentation/detail/pages/currency_detail_page.dart';
-import 'package:currency_exchange_tracker/features/exchange_rates/presentation/detail/widgets/history_shimmer.dart';
 import 'package:currency_exchange_tracker/features/exchange_rates/presentation/detail/widgets/history_chart.dart';
+import 'package:currency_exchange_tracker/features/exchange_rates/presentation/detail/widgets/history_shimmer.dart';
+import 'package:currency_exchange_tracker/features/exchange_rates/presentation/detail/widgets/currency_summary_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -28,7 +29,7 @@ final history = CurrencyHistory(
   fetchedAt: DateTime.utc(2026, 6, 1),
 );
 
-final class DetailRepository implements ExchangeRatesRepository {
+class DetailRepository implements ExchangeRatesRepository {
   Completer<CurrencyHistory> pending = Completer();
   bool failSummary = false;
   @override
@@ -44,7 +45,45 @@ final class DetailRepository implements ExchangeRatesRepository {
   }) => pending.future;
 }
 
+final class PendingDetailRepository extends DetailRepository {
+  final pendingSummary = Completer<ExchangeRates>();
+
+  @override
+  Future<ExchangeRates> load() => pendingSummary.future;
+}
+
 void main() {
+  testWidgets(
+    'initial detail summary uses shimmer instead of a linear loader',
+    (tester) async {
+      final repository = PendingDetailRepository();
+      final bloc = CurrencyDetailBloc(
+        currency: Currency.usd,
+        getRates: GetExchangeRates(repository),
+        getHistory: GetCurrencyHistory(repository),
+      )..add(SummaryRequested());
+      addTearDown(bloc.close);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light,
+          home: BlocProvider.value(
+            value: bloc,
+            child: const CurrencyDetailView(currency: Currency.usd),
+          ),
+        ),
+      );
+      await tester.pump();
+
+      expect(find.byType(CurrencySummaryShimmer), findsOneWidget);
+      expect(find.byType(LinearProgressIndicator), findsNothing);
+
+      repository.pendingSummary.complete(summary);
+      await tester.pumpAndSettle();
+      expect(find.text('52.3777 EGP'), findsOneWidget);
+    },
+  );
+
   testWidgets('large text and reduced motion keep detail readable', (
     tester,
   ) async {

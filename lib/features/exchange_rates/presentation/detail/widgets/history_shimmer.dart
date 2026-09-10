@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/design_system/theme/exchange_colors.dart';
+import '../../../../../core/design_system/widgets/app_shimmer.dart';
 
 class HistoryShimmer extends StatefulWidget {
   const HistoryShimmer({super.key});
@@ -8,51 +9,86 @@ class HistoryShimmer extends StatefulWidget {
   State<HistoryShimmer> createState() => _HistoryShimmerState();
 }
 
-class _HistoryShimmerState extends State<HistoryShimmer>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController controller = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 1400),
-  );
+class _HistoryShimmerState extends State<HistoryShimmer> {
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (MediaQuery.disableAnimationsOf(context)) {
-      controller.stop();
-    } else {
-      controller.repeat();
-    }
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).exchangeColors;
-    return Semantics(
-      label: 'Loading historical rates',
-      child: AnimatedBuilder(
-        animation: controller,
-        builder: (context, child) => Container(
-          height: 220,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            gradient: LinearGradient(
-              begin: Alignment(-3 + 6 * controller.value, 0),
-              end: Alignment(-1 + 6 * controller.value, 0),
-              colors: [
-                colors.shimmerBase,
-                colors.shimmerHighlight,
-                colors.shimmerBase,
-              ],
-            ),
+  Widget build(BuildContext context) => AppShimmer(
+    label: 'Loading historical rates',
+    child: const SizedBox(
+      height: 220,
+      child: Stack(
+        children: [
+          Positioned(
+            left: 58,
+            right: 0,
+            top: 28,
+            child: ShimmerBlock(height: 1),
           ),
-        ),
+          Positioned(
+            left: 58,
+            right: 0,
+            top: 100,
+            child: ShimmerBlock(height: 1),
+          ),
+          Positioned(
+            left: 58,
+            right: 0,
+            top: 172,
+            child: ShimmerBlock(height: 1),
+          ),
+          Positioned(left: 64, right: 14, top: 48, child: _ChartLine()),
+          Positioned(
+            left: 64,
+            bottom: 0,
+            child: ShimmerBlock(width: 34, height: 14),
+          ),
+          Positioned(
+            right: 14,
+            bottom: 0,
+            child: ShimmerBlock(width: 34, height: 14),
+          ),
+        ],
       ),
+    ),
+  );
+}
+
+class _ChartLine extends StatelessWidget {
+  const _ChartLine();
+
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(
+    builder: (context, constraints) => CustomPaint(
+      size: Size(constraints.maxWidth, 120),
+      painter: _ChartLinePainter(Theme.of(context).exchangeColors.shimmerBase),
+    ),
+  );
+}
+
+class _ChartLinePainter extends CustomPainter {
+  const _ChartLinePainter(this.color);
+
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final path = Path()
+      ..moveTo(0, 10)
+      ..lineTo(size.width * .16, 32)
+      ..lineTo(size.width * .32, 48)
+      ..lineTo(size.width * .5, 64)
+      ..lineTo(size.width * .68, 82)
+      ..lineTo(size.width * .84, 98)
+      ..lineTo(size.width, 110);
+    canvas.drawPath(
+      path,
+      Paint()
+        ..color = color
+        ..strokeWidth = 3
+        ..style = PaintingStyle.stroke,
     );
   }
+
+  @override
+  bool shouldRepaint(_ChartLinePainter oldDelegate) =>
+      oldDelegate.color != color;
 }

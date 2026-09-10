@@ -9,6 +9,7 @@ import '../../../../../core/utilities/calendar_date.dart';
 import '../../../di/exchange_rates_dependencies.dart';
 import '../bloc/exchange_rates_bloc.dart';
 import '../widgets/base_currency_card.dart';
+import '../widgets/exchange_rates_shimmer.dart';
 import '../widgets/rate_tile.dart';
 
 class ExchangeRatesPage extends StatelessWidget {
@@ -130,39 +131,37 @@ class _ExchangeRatesViewState extends State<ExchangeRatesView>
                           ),
                         ),
                         const SizedBox(height: 24),
-                        BaseCurrencyCard(
-                          dateLabel: data == null
-                              ? 'Daily exchange rates'
-                              : 'Rates dated ${calendarDate(data.date)}',
-                        ),
-                        const SizedBox(height: 26),
-                        Wrap(
-                          alignment: WrapAlignment.spaceBetween,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: [
-                            Text(
-                              'Exchange rates',
-                              style: theme.textTheme.titleLarge,
-                            ),
-                            Text(
-                              '5 currencies',
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color: scheme.onSurfaceVariant,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          'EGP per 1 foreign unit',
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: scheme.onSurfaceVariant,
+                        if (state.loading && data == null)
+                          const ExchangeRatesShimmer()
+                        else ...[
+                          BaseCurrencyCard(
+                            dateLabel: data == null
+                                ? 'Daily exchange rates'
+                                : 'Rates dated ${calendarDate(data.date)}',
                           ),
-                        ),
-                        if (state.loading) ...[
-                          const SizedBox(height: 18),
-                          const LinearProgressIndicator(
-                            semanticsLabel: 'Loading exchange rates',
+                          const SizedBox(height: 26),
+                          Wrap(
+                            alignment: WrapAlignment.spaceBetween,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: [
+                              Text(
+                                'Exchange rates',
+                                style: theme.textTheme.titleLarge,
+                              ),
+                              Text(
+                                '5 currencies',
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: scheme.onSurfaceVariant,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            'EGP per 1 foreign unit',
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: scheme.onSurfaceVariant,
+                            ),
                           ),
                         ],
                         if (state.error != null || data?.notice != null) ...[

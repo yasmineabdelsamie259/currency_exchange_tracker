@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/design_system/app_assets.dart';
 import '../widgets/currency_summary_card.dart';
+import '../widgets/currency_summary_shimmer.dart';
 import '../../../../../core/utilities/calendar_date.dart';
 import '../../../domain/entities/exchange_rates.dart';
 import '../../../di/exchange_rates_dependencies.dart';
@@ -118,13 +119,12 @@ class _CurrencyDetailViewState extends State<CurrencyDetailView>
                         ],
                       ),
                       const SizedBox(height: 24),
-                      CurrencySummaryCard(currency: currency, summary: summary),
-                      if (state.summary.loading)
-                        const Padding(
-                          padding: EdgeInsets.only(top: 12),
-                          child: LinearProgressIndicator(
-                            semanticsLabel: 'Loading latest rate',
-                          ),
+                      if (state.summary.loading && summary == null)
+                        const CurrencySummaryShimmer()
+                      else
+                        CurrencySummaryCard(
+                          currency: currency,
+                          summary: summary,
                         ),
                       if (state.summary.error != null) ...[
                         message(state.summary.error!),
