@@ -73,8 +73,8 @@ Separated functional requirements from quality and delivery requirements; covere
 
 #### Decision
 
-- Outcome: Pending review
-- Reason: The user requested a proposal; acceptance, edits, or rejection have not yet been provided. Fixed architectural constraints were treated as requirements, while recommended defaults remain proposals.
+- Outcome: Edited
+- Reason: The user accepted the plan while moving dependency registration into the feature; `core/di` remains for shared dependencies. The feature structure and later milestones followed the plan with that adjustment.
 - Validation: Re-read all three assessment pages and checked coverage against the requested planning topics. No application code was modified; no build or tests were run for this planning-only interaction.
 - Related work: Implementation plan in the conversation; AI_USAGE.md. Not committed or pushed in this turn.
 
@@ -105,8 +105,8 @@ Created an in-conversation mobile home design with an emerald/ivory palette, Egy
 
 #### Decision
 
-- Outcome: Pending review
-- Reason: The design is proposed for user review; no acceptance of the visual has been provided yet.
+- Outcome: Accepted
+- Reason: The user approved the visual direction with “Ok great” and requested implementation. Its established color, layout, and interaction direction guided the home screen.
 - Validation: Parsed the supplied JSON and calculated the five inverse rates. Checked fragment structure and local interaction selectors; no live API request or Flutter build was performed.
 - Related work: Conversation home-screen visualization; AI_USAGE.md. No commit or push.
 
@@ -134,8 +134,8 @@ Established a themed app shell and navigation, shared constructor-injected clien
 
 #### Decision
 
-- Outcome: Pending review
-- Reason: Implementation requested and completed locally; user has not yet reviewed the resulting foundation.
+- Outcome: Edited
+- Reason: The foundation was accepted as the base for subsequent milestones, with navigation later replaced by go_router at the user's request.
 - Validation: Flutter analysis passed; all five tests passed; Dart files formatted. Tests cover endpoint construction, cache round-trip and scoped clear, corrupt cache, and server/invalid-data failures. No device build or platform persistence test performed.
 - Related work: lib/core, lib/features/exchange_rates, lib/app.dart, lib/main.dart, pubspec files, Android manifest, analysis options, README.md, and test/features/exchange_rates/data/datasources/data_sources_test.dart. No commit or push in this interaction.
 
@@ -178,8 +178,8 @@ Inspected the original visualization and identified four Lucide icons, an Egypti
 
 #### Decision
 
-- Outcome: Pending review
-- Reason: Asset preparation follows the request; the portable flag replacement and asset set await user review. Text glyphs and layout decorations remain native UI elements rather than being rasterized.
+- Outcome: Accepted
+- Reason: The assets were used in the implemented home and detail screens. Text glyphs and layout decoration remain native UI elements as planned.
 - Validation: All five SVGs parsed successfully and have viewBoxes. Flutter analysis clean; all five existing tests passed. Assets have not yet been visually verified in a running Flutter screen.
 - Related work: assets/, lib/core/design_system/app_assets.dart, pubspec.yaml, pubspec.lock. Included in the asset milestone commit under the standing commit/push instruction.
 
@@ -268,8 +268,8 @@ Implemented the home route with Poundwise branding, SVG icons and Egyptian flag,
 
 #### Decision
 
-- Outcome: Pending review
-- Reason: Implementation follows the approved visual and architecture; user review of the completed home screen is still pending. UTC calendar dates and four-decimal rate formatting follow the earlier proposed defaults.
+- Outcome: Accepted
+- Reason: The user approved the implementation direction with “great” and proceeded to request detail-screen work. UTC dates and four-decimal formatting remain the accepted defaults.
 - Validation: Flutter analysis clean; all 33 tests pass, including data-source/networking checks, inversion and daily changes, cache fallback across repository recreation, partial historical failure, invalid rates, BLoC refresh/error/reconnect behavior, and light/dark widget rendering with normal/2x text at 390px. Inspected temporary light/dark screenshots rendered with a real font and fixture data. No mobile device or simulator was connected; no device build, live API smoke test, or platform persistence verification was performed.
 - Related work: home presentation/BLoC/widgets, exchange_rates domain/data/DI, core network monitor/DI, dependency files, architecture notes, and tests. Included in the home milestone commit under the standing commit/push instruction.
 
@@ -298,8 +298,8 @@ Implemented home-to-detail go_router navigation, direct currency links and inval
 
 #### Decision
 
-- Outcome: Pending review
-- Reason: User authorized both the visualization and implementation; final design/code acceptance is not yet provided. Historical window follows the previously proposed seven completed UTC dates. A simple seven-point custom chart avoids an additional chart package.
+- Outcome: Accepted
+- Reason: The user proceeded from the implemented detail screen to request loading-state refinements. The seven completed UTC-day window and a simple custom seven-point chart remain accepted choices.
 - Validation: Flutter analysis clean; all 43 tests pass. New tests cover seven-date ordering/inversion, cross-currency reuse, persistent cached history, partial failures/retry, invalid dates/values, independent summary failure, chart shimmer/selection/failure, light/dark at 320px and 390px, 2x text/reduced motion, and home/back/direct/invalid navigation. Inspected temporary light/dark Flutter screenshots with fixture data and a real font. Verified new SVGs parse and read back the visualization fragment. No live API/device smoke test or native platform persistence test performed.
 - Related work: detail visualization in conversation, assets/icons and asset registry/docs, exchange_rates domain/data/DI/detail presentation, home row navigation, app router, README.md, and tests. Included in the detail milestone commit under the standing commit/push instruction.
 
@@ -324,7 +324,28 @@ Added a reusable theme-driven shimmer primitive that honors reduced-motion prefe
 
 #### Decision
 
-- Outcome: Pending review
-- Reason: The user explicitly requested this loading-state refinement; the final visual treatment awaits review.
+- Outcome: Accepted
+- Reason: The user requested this log cleanup after the shimmer milestone, confirming it as part of the accepted project history.
 - Validation: Dart formatting completed; Flutter analysis clean; all 45 tests passed. Tests verify home and detail initial shimmers replace linear indicators, and existing detail tests cover chart shimmer, light/dark themes, narrow layouts, large text, and reduced motion. No physical-device visual test was run.
 - Related work: core shimmer widgets, home/detail shimmer components and pages, README.md, and presentation widget tests. Included in the loading-state milestone commit under the standing commit/push instruction.
+
+### AI-012 - Resolve AI log review statuses
+
+- Date/time: 2026-09-10T16:22:55+03:00
+- Tool/model: Codex / GPT-5
+- Context: Finalize outstanding decisions in the AI usage log based on the project's subsequent approved work.
+
+#### Prompt
+
+> regarding our history, modify the Pending review status in AI logs file
+
+#### AI response summary
+
+Resolved every outstanding Pending review decision using the subsequent user direction and completed milestones. The planning entry is marked Edited for feature-owned DI; the foundation is marked Edited for the go_router migration; and the visual, asset, home, detail, and shimmer entries are marked Accepted because they were approved, used, or refined in later work.
+
+#### Decision
+
+- Outcome: Accepted
+- Reason: The user explicitly requested the review-status cleanup.
+- Validation: Confirmed no `Pending review` outcomes remain in AI_USAGE.md.
+- Related work: AI_USAGE.md. Included in the AI-log maintenance commit under the standing commit/push instruction.
