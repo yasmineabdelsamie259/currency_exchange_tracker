@@ -250,3 +250,25 @@ Expanded both Material color schemes to match the approved visualization and add
 - Reason: Applied the user's theme-only color constraint to the existing minimal theme. All custom colors have light and dark values; screen implementation is deferred to the next UI milestone.
 - Validation: Dart files formatted; Flutter analysis clean; all 25 existing tests pass. No visual device verification performed because the home screen remains a placeholder.
 - Related work: lib/core/design_system/theme/app_theme.dart, exchange_colors.dart, README.md. Included in the theme milestone commit under the standing commit/push instruction.
+
+
+### AI-009 - Implement home/main screen
+
+- Date/time: 2026-09-10T15:12:20+03:00
+- Tool/model: Codex / GPT-6
+- Context: Implement the approved home screen using the established theme, DI, networking, local storage, and BLoC foundation.
+
+#### Prompt
+
+> Now let's start implementing the home and main screen
+
+#### AI response summary
+
+Implemented the home route with Poundwise branding, SVG icons and Egyptian flag, themed base-currency card, five currency rows, rate dates/fetch timestamps, and responsive light/dark styling. Added domain currency/quote entities and repository contract/use case; implemented remote snapshot parsing, rate inversion, daily-change calculation, latest/yesterday fetching, date checks, successful-result persistence, and cached fallback. Added list BLoC with loading, error, refresh, empty-data presentation, preserved content on refresh failure, and network reconnection/app-resume refresh. Missing or invalid rates are unavailable rather than fabricated; missing previous-day data suppresses changes. Kept detail navigation and charts for the next feature milestone. Consulted official connectivity_plus documentation for reconnect notification semantics: https://pub.dev/packages/connectivity_plus.
+
+#### Decision
+
+- Outcome: Pending review
+- Reason: Implementation follows the approved visual and architecture; user review of the completed home screen is still pending. UTC calendar dates and four-decimal rate formatting follow the earlier proposed defaults.
+- Validation: Flutter analysis clean; all 33 tests pass, including data-source/networking checks, inversion and daily changes, cache fallback across repository recreation, partial historical failure, invalid rates, BLoC refresh/error/reconnect behavior, and light/dark widget rendering with normal/2x text at 390px. Inspected temporary light/dark screenshots rendered with a real font and fixture data. No mobile device or simulator was connected; no device build, live API smoke test, or platform persistence verification was performed.
+- Related work: home presentation/BLoC/widgets, exchange_rates domain/data/DI, core network monitor/DI, dependency files, architecture notes, and tests. Included in the home milestone commit under the standing commit/push instruction.

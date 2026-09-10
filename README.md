@@ -4,7 +4,10 @@ Flutter mobile technical assessment project targeting Android and iOS.
 
 ## Current status
 
-Foundation established: application shell, light/dark theme, routing, constructor injection, shared Dio networking and persistent key-value adapters, and feature-owned remote/local data sources. The screen remains a placeholder. Rate models, repository policy, BLoCs, UI, and offline refresh behavior are not implemented yet.
+Home screen implemented with theme-driven light/dark styling, real latest/yesterday
+requests, daily changes, BLoC state, persistent fallback, pull-to-refresh, retry,
+and refresh on reconnect/app resume. Currency detail and historical charts remain
+the next feature milestone.
 
 ## Assessment scope
 
@@ -36,10 +39,15 @@ See [AI_USAGE.md](AI_USAGE.md). Record meaningful interactions throughout develo
 - `lib/core/design_system`, `navigation`, `utilities`: app theme, go_router configuration, and date formatting. The app owns and disposes its router; the home route is `/`.
 - `lib/features/exchange_rates/di`: feature dependency construction; future repository/use-case/BLoC factories belong here.
 - `lib/features/exchange_rates/data/datasources`: latest/historical EGP requests and versioned local JSON document persistence.
-- `lib/features/exchange_rates/domain`: reserved pure-Dart boundary for entities, repository contract, and use cases.
-- `lib/features/exchange_rates/presentation`: placeholder home page; future list/detail BLoCs belong here.
+- `lib/features/exchange_rates/domain`: pure-Dart entities, repository contract, and use case.
+- `lib/features/exchange_rates/presentation`: home page and list BLoC; detail presentation remains future work.
 
-The local source stores one versioned feature document. The future repository will own date indexing, API dates versus fetch timestamps, retention, schema validation, and fallback. Storage does not clear unrelated preferences. Missing cache returns null; malformed JSON produces a categorized failure. No requests run at app startup yet.
+The local source stores the last successful latest/previous payloads and fetch time
+in a versioned document. The repository checks dates, inverts positive finite
+rates, and returns cached data when fetching fails. Historical retention remains
+part of the chart milestone. App startup performs one latest request and one
+previous UTC calendar-date request; stale latest data has no daily change.
+Connectivity events are retry hints, not proof of internet availability.
 
 ## Validation
 

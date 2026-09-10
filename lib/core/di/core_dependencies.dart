@@ -1,4 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+
+import '../networking/network_monitor.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,6 +21,7 @@ final class CoreDependencies {
     storage: PreferencesStore(SharedPreferencesAsync()),
   );
 
+  final NetworkMonitor networkMonitor = NetworkMonitor(Connectivity());
   final Dio _client;
   final HttpClient network;
   final KeyValueStore storage;
